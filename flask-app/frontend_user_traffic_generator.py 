@@ -1,0 +1,35 @@
+from flask import Flask, render_template, request, redirect, url_for
+import requests
+
+app = Flask(__name__)
+
+# Define the URL of your traffic generator API
+TRAFFIC_GENERATOR_URL = "http://localhost:3000"
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/generate_traffic', methods=['POST'])
+def generate_traffic():
+    endpoint = request.form.get('endpoint')
+    frequency = request.form.get('frequency')
+    duration = request.form.get('duration')
+
+    # Prepare the data for the API request
+    data = {
+        "endpoint": endpoint,
+        "frequency": int(frequency),
+        "duration": int(duration)
+    }
+
+    # Send a request to the traffic generator API
+    response = requests.post(f"{TRAFFIC_GENERATOR_URL}/generate_traffic", json=data)
+    
+    if response.status_code == 200:
+        return render_template('success.html', message="Traffic generation started successfully!")
+    else:
+        return render_template('error.html', message="Failed to start traffic generation.")
+
+if __name__ == '__main__':
+    app.run(debug=True)

@@ -92,17 +92,17 @@ async def chain(response: Response):
 
     async with httpx.AsyncClient() as client:
         await client.get(
-            "http://localhost:8000/",
+            "http://localhost:3000/",
             headers=headers,
         )
     async with httpx.AsyncClient() as client:
         await client.get(
-            f"http://{TARGET_ONE_HOST}:8000/io_task",
+            f"http://{TARGET_ONE_HOST}:3000/io_task",
             headers=headers,
         )
     async with httpx.AsyncClient() as client:
         await client.get(
-            f"http://{TARGET_TWO_HOST}:8000/cpu_task",
+            f"http://{TARGET_TWO_HOST}:3000/cpu_task",
             headers=headers,
         )
     logging.info("Chain Finished")
