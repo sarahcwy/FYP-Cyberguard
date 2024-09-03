@@ -7,7 +7,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 # Define the target FastAPI app's base URL
-TARGET_APP_URL = "http://localhost:8000"
+TARGET_APP_URL = "http://app-a:8000"
 
 @app.route('/call_url', methods=['GET'])
 def call_url():
@@ -15,16 +15,17 @@ def call_url():
     response = requests.get(url)
     start_time = time.time()
     endpoint = "/"
-    frequency = 3
-    duration = 10
-    # while time.time() - start_time < duration:
-    #     try:
-    #         url = f"{TARGET_APP_URL}"
-    #         response = requests.get(url)
-    #         print(f"Request to {url} - Status: {response.status_code}")
-    #     except Exception as e:
-    #         print(f"Error during request: {e}")
+    frequency = 1
+    duration = 100
+    while time.time() - start_time < duration:
+        try:
+            url = f"{TARGET_APP_URL}"
+            response = requests.get(url)
+            print(f"Request to {url} - Status: {response.status_code}")
+        except Exception as e:
+            print(f"Error during request: {e}")
     time.sleep(frequency)
+    return
 
 def generate_random_data(endpoint):
     if endpoint == "/items/{item_id}":

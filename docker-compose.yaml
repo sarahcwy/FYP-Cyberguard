@@ -87,7 +87,7 @@ services:
       - prometheus
     logging: *default-logging
 
-  flask_app:
+  flask-app:
       build:
         context: ./flask-app
         dockerfile: Dockerfile
