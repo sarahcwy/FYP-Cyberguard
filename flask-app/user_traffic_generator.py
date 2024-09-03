@@ -59,37 +59,37 @@ def generate_traffic(endpoint, frequency, duration):
 def home():
     return jsonify({"message": "Traffic generation started"}), 200    
 
-@app.route('/generate_traffic', methods=['POST'])
-def generate_traffic_route():
-    data = request.json
-    endpoint = data.get('endpoint', '/')
-    frequency = data.get('frequency', 1)
-    duration = data.get('duration', 10)
+# @app.route('/generate_traffic', methods=['POST'])
+# def generate_traffic_route():
+#     data = request.json
+#     endpoint = data.get('endpoint', '/')
+#     frequency = data.get('frequency', 1)
+#     duration = data.get('duration', 10)
 
-    threading.Thread(target=generate_traffic, args=(endpoint, frequency, duration)).start()
-    return jsonify({"message": "Traffic generation started", "endpoint": endpoint}), 200
+#     threading.Thread(target=generate_traffic, args=(endpoint, frequency, duration)).start()
+#     return jsonify({"message": "Traffic generation started", "endpoint": endpoint}), 200
 
-@app.route('/generate_bulk_traffic', methods=['POST'])
-def generate_bulk_traffic():
-    data = request.json
-    frequency = data.get('frequency', 1)
-    duration = data.get('duration', 10)
+# @app.route('/generate_bulk_traffic', methods=['POST'])
+# def generate_bulk_traffic():
+#     data = request.json
+#     frequency = data.get('frequency', 1)
+#     duration = data.get('duration', 10)
     
-    endpoints = [
-        "/",
-        "/items/{item_id}",
-        "/io_task",
-        "/cpu_task",
-        "/random_status",
-        "/random_sleep",
-        "/error_test",
-        "/chain"
-    ]
+#     endpoints = [
+#         "/",
+#         "/items/{item_id}",
+#         "/io_task",
+#         "/cpu_task",
+#         "/random_status",
+#         "/random_sleep",
+#         "/error_test",
+#         "/chain"
+#     ]
 
-    for endpoint in endpoints:
-        threading.Thread(target=generate_traffic, args=(endpoint, frequency, duration)).start()
+#     for endpoint in endpoints:
+#         threading.Thread(target=generate_traffic, args=(endpoint, frequency, duration)).start()
 
-    return jsonify({"message": "Bulk traffic generation started"}), 200
+#     return jsonify({"message": "Bulk traffic generation started"}), 200
 
 if __name__ == '__main__':
     app.run(host= '0.0.0.0', port=5123, debug=True)
